@@ -1,0 +1,96 @@
+#include <kipr/wombat.h>
+
+int main()
+
+{
+int around = 115; //180 degree turn
+int rightturn = 30; //45 degree right turn
+  int initial = 1000;
+int tall = 1800;
+//int halfsies = 500;
+int shortie = 1505;//og 1090?
+//int tallie = 1724;
+    create_connect();
+    set_create_distance(0);
+while (abs(get_create_distance()) < 30)
+        
+    {
+     
+        create_drive_direct(400,400);//forward approx 40 cm back to back
+        msleep(10);
+        
+    }
+    
+    set_create_total_angle(0);
+    while(abs(get_create_total_angle())<17) //turn left approx 30 degrees
+          {
+              create_drive_direct(-150,150);
+              msleep(10);
+          }
+set_create_distance(0);
+while(abs(get_create_distance())<10)
+{
+create_drive_direct(400,400); //forward a lil
+msleep(10);
+}
+
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<8) 
+{
+create_drive_direct(-150,150);
+msleep(10);
+}
+   
+set_create_distance(0);
+while(abs(get_create_distance())<10)
+{ 
+	create_drive_direct(400,400);
+	msleep(10);
+}
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<15)  //right turn
+{
+create_drive_direct(150,-150);
+msleep(10);
+}
+    
+set_create_distance(0);
+while(abs(get_create_distance())<31) //forward to meet buildings
+{ 
+	create_drive_direct(200,200);
+	msleep(10);
+} 
+  
+  create_drive_direct(0,0); //stop for servos
+    msleep(100);
+    
+    enable_servos();
+    set_servo_position(1,shortie);
+    
+    create_drive_direct(0,0); //stop so lift up
+    msleep(1000);
+       
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<rightturn) //45 degree right turn
+{
+create_drive_direct(150,-150);
+msleep(10);
+}
+    
+set_create_distance(0);
+while(abs(get_create_distance())<27) //forward to align with 2nd tower
+{
+create_drive_direct(400,400);
+msleep(10);
+}
+
+set_create_distance(0);
+while(abs(get_create_total_angle())<around) //180 degree turn
+{
+create_drive_direct(150,-150);
+msleep(10);
+}
+
+set_servo_position(1, tall);
+    create_drive_direct(0,0); //time for lift
+msleep(1000);
