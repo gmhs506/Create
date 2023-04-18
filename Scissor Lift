@@ -1,0 +1,134 @@
+#include <kipr/wombat.h>
+
+int main()
+
+{
+int around = 115; //180 degree turn
+int rightturn = 30; //45 degree right turn
+  int initial = 1000;
+int tall = 1800;
+    int open = 1400;
+    int close = 800;
+//int halfsies = 500;
+int shortie = 1505;//og 1090?
+//int tallie = 1724;
+    create_connect();
+    set_create_distance(0);
+while (abs(get_create_distance()) < 30)
+        
+    {
+     
+        create_drive_direct(400,400);//forward approx 40 cm back to back
+        msleep(10);
+        
+    }
+    
+    set_create_total_angle(0);
+    while(abs(get_create_total_angle())<17) //turn left approx 30 degrees
+          {
+              create_drive_direct(-150,150);
+              msleep(10);
+          }
+set_create_distance(0);
+while(abs(get_create_distance())<10)
+{
+create_drive_direct(400,400); //forward a lil
+msleep(10);
+}
+
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<8) 
+{
+create_drive_direct(-150,150);
+msleep(10);
+}
+   
+set_create_distance(0);
+while(abs(get_create_distance())<10)
+{ 
+	create_drive_direct(400,400);
+	msleep(10);
+}
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<15)  //right turn
+{
+create_drive_direct(150,-150);
+msleep(10);
+}
+    
+set_create_distance(0);
+while(abs(get_create_distance())<31) //forward to meet buildings
+{ 
+	create_drive_direct(200,200);
+	msleep(10);
+} 
+  
+  create_drive_direct(0,0); //stop for servos
+    msleep(100);
+    
+    enable_servos();
+    set_servo_position(1,shortie);
+    
+    create_drive_direct(0,0); //stop so lift up
+    msleep(1000);
+       
+set_servo_position(2,open); //open claw piece
+    msleep(100);
+    create_drive_direct(0,0); //stop so open
+    msleep(1000);
+    
+  set_create_distance(0);  
+ while (abs(get_create_distance())<2) //forward to meet cube
+ {
+     create_drive_direct(200,200);
+     msleep(10);
+ }
+    set_servo_position(2,close); //clamp onto cube
+    msleep(100);
+    
+  set_create_distance(0);  
+ while (abs(get_create_distance())<4) //back up
+ {
+     create_drive_direct(-200,-200);
+     msleep(10);
+ }  
+    
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<15)  //left turn
+{
+create_drive_direct(-150,150);
+msleep(10);
+}
+
+set_servo_position(2, open); //open claw
+msleep(100);
+
+create_drive_direct(0,0);
+msleep(1000);
+
+set_create_total_angle(0);
+while(abs(get_create_total_angle())<around)  //180 turn
+{
+create_drive_direct(150,-150);
+msleep(10);
+}
+
+
+
+    
+
+
+set_servo_position(1, tall);
+    create_drive_direct(0,0); //time for lift
+msleep(1000);
+
+
+
+
+    disable_servos();
+    create_disconnect();
+    return(0);
+}
+
+
+
