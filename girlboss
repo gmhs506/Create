@@ -1,0 +1,52 @@
+#include <kipr/wombat.h>
+
+int main()
+
+{
+  int initial = 1000;
+//int fullzies = 1000;
+//int halfsies = 500;
+int shortie = 1550;//og 1090?
+//int tallie = 1724;
+
+    create_connect();
+    set_servo_position(0,initial);//begin
+    enable_servos ();
+    msleep(200);
+    create_drive_direct(100,100);//forward
+    msleep(1000);
+    create_drive_direct(20,100);//straighten
+    msleep(2000);
+    create_drive_direct(100,100);//forward
+    msleep(1800);
+    create_drive_direct(20,100); //semi left turn
+    msleep(1000);    
+    create_drive_direct(100,100); //forward
+    msleep(285);
+    set_servo_position(0,shortie);//begin
+    msleep(700);//lift servo short
+    create_drive_direct(100,20); //straighten 
+    msleep(1000);
+    create_drive_direct(100,0);//turn/knock off
+    msleep(2500);
+    create_drive_direct(-80,-100);
+    msleep(900);
+    set_servo_position(0,1600);
+     msleep(200);
+     set_servo_position(0,1700);
+     msleep(200);
+    set_servo_position(0,1900);
+     msleep(200);
+    //lift servo
+    create_drive_direct(80,100);//forward
+    msleep(2000);
+   // create_drive_direct(0,50);//backwards turn
+   // msleep(200);
+   // create_drive_direct(100,0);//full turn
+    //msleep(200);
+   // create_drive_direct(0,50);//backwards turn
+   // msleep(200);
+    ao();
+    create_disconnect();
+    return 0;
+}
