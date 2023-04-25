@@ -1,0 +1,94 @@
+#include <kipr/wombat.h>
+
+int main()
+   
+{
+int up= 42; //arm servo  
+int down= 1018;
+int mup = 1024; // micro servo
+int mdown= 80; //some value change this
+    int leftturn = 36; 
+    int board = 30; //this is a turn so it remains parallel to board
+    
+    
+create_connect ();  
+shut_down_in(119);
+   
+    set_create_total_angle(0);
+while(abs(get_create_total_angle())<4) //turn right a smidge 
+          {
+          create_drive_direct(150,-150);
+          msleep(10);
+          }
+    
+    
+    //make sure to include the slight turn at the start bc positioning is different
+    
+    set_create_distance(0);
+while(abs(get_create_distance())<30) //initially was 5, changed for non board running
+          {
+          create_drive_direct(200,200); //forward to right end of board
+          msleep(10);
+          }
+    
+    enable_servos();
+    set_servo_position(1,up);
+    msleep(10);
+    set_servo_position(2,mup);
+    msleep(10);
+    
+    
+    set_create_total_angle(0);
+while(abs(get_create_total_angle())<leftturn) //turn left 45 degree 
+          {
+          create_drive_direct(-150,150);
+          msleep(10);
+          }
+    
+    set_create_distance(0);
+while(abs(get_create_distance())<20)
+          {
+          create_drive_direct(200,200); //forward to buildings
+          msleep(10);
+}
+    set_create_total_angle(0);
+while(abs(get_create_total_angle())<15) //turn right some degree dont ask this turn is weird
+          {
+          create_drive_direct(150,0);
+           msleep(10);
+          }
+    
+set_create_distance(0);
+while(abs(get_create_distance())<8)
+	{
+	create_drive_direct(200,200); //forward to be right next to buildings
+	msleep(10);
+	}
+    
+    
+    
+    
+     set_create_total_angle(0);
+while(abs(get_create_total_angle())<board) //turn left to knock cube off short tower check this make sure this is parallel to building
+          {
+          create_drive_direct(-150,150);
+          msleep(10);
+          }
+    set_create_distance(0);
+while(abs(get_create_distance())<15)
+          {
+          create_drive_direct(200,200); //forward to be next to tall building
+          msleep(10);
+          }
+    msleep(10);
+    set_servo_position(2,mdown);
+    msleep(10);
+    
+disable_servos();
+create_disconnect();
+      return 0;
+
+
+
+
+}
