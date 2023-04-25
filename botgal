@@ -1,0 +1,22 @@
+#include <kipr/wombat.h>
+
+int main()
+{
+      int open_bg =600;
+     int close_bg =1250;
+  create_connect ();
+   enable_servos ();
+    set_servo_position (0, open_bg);
+  create_drive_direct (50,50);
+    msleep (500);
+    set_servo_position (0, close_bg);
+    msleep (200);
+
+       create_drive_direct (-50,-50);
+    msleep (3000);
+    create_disconnect ();
+    ao ();
+    return 0;
+  // 650 is open for botgal claw
+ // 1250 close    
+}
